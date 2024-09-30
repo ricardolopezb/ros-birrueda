@@ -353,6 +353,7 @@ void casos(String header2)
 
 void subscription_callback(const void *msgin)
 {
+  Serial.print("Received: WAKA");
   const std_msgs__msg__String *msg = (const std_msgs__msg__String *)msgin;
 
   // Convert the msg->data (C-style string) to an Arduino String
