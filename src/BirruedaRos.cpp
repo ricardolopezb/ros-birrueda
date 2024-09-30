@@ -23,21 +23,9 @@ rclc_executor_t executor;
 
 #define LED_PIN 2 // Pin del LED en el ESP
 
-#define RCCHECK(fn)              \
-  {                              \
-    rcl_ret_t temp_rc = fn;      \
-    if ((temp_rc != RCL_RET_OK)) \
-    {                            \
-      error_loop();              \
-    }                            \
-  }
-#define RCSOFTCHECK(fn)          \
-  {                              \
-    rcl_ret_t temp_rc = fn;      \
-    if ((temp_rc != RCL_RET_OK)) \
-    {                            \
-    }                            \
-  }
+#define RCCHECK(fn) { rcl_ret_t temp_rc = fn; if((temp_rc != RCL_RET_OK)){error_loop();}}
+#define RCSOFTCHECK(fn) { rcl_ret_t temp_rc = fn; if((temp_rc != RCL_RET_OK)){}}
+
 
 const char *ssid = "UA-Alumnos";
 const char *password = "41umn05WLC";
@@ -371,32 +359,23 @@ void subscription_callback(const void *msgin)
   String received_msg = String(msg->data.data);
   String x = "Received: " + received_msg;
   Serial.println(x);
-
   // Check if the received string matches "1"
-  if (received_msg == "1")
+  if (received_msg == "hey")
+  
   {
+    delay(2000);
+    
     casos(received_msg);
   }
 }
 
 void setup()
 {
-  pinMode(LED_PIN, OUTPUT);
-  digitalWrite(LED_PIN, LOW); // Asegúrate de que el LED esté apagado inicialmente
+  // pinMode(LED_PIN, OUTPUT);
+  // digitalWrite(LED_PIN, LOW); // Asegúrate de que el LED esté apagado inicialmente
 
-  Serial.begin(9600);
-
-  // Configurar la conexión Wi-Fi
-  WiFi.begin(ssid, password);
-  while (WiFi.status() != WL_CONNECTED)
-  {
-    delay(1000);
-    Serial.println("Conectando a WiFi...");
-  }
-  Serial.println("Conectado a la red WiFi");
-
-  // Establecer el transporte a través de Wi-Fi
-  // set_microros_wifi_transports(ssid, password, agent_ip, agent_port);
+  Serial.begin(115200);
+  set_microros_serial_transports(Serial);
 
   allocator = rcl_get_default_allocator();
 
@@ -423,5 +402,6 @@ void setup()
 void loop()
 {
   // Ejecutar el executor
+  Serial.println("Executing...");
   RCSOFTCHECK(rclc_executor_spin_some(&executor, RCL_MS_TO_NS(100)));
 }
