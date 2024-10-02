@@ -178,6 +178,16 @@ void calcularVelocidad()
   }
 }
 
+void blinkLedNTimes(int times){
+  for (int i = 0; i < times; i++)
+  {
+    digitalWrite(LED_PIN, HIGH); // Enciende LED
+    delay(500);
+    digitalWrite(LED_PIN, LOW); // Enciende LED
+    delay(500);
+  }
+}
+
 void controlPI()
 {                                                        // controlador proporcional-integral (PI) para dos motores
   float error1 = velocidad_deseada1 - velocidad_actual1; // eror para el motor 1 Velo deseada vs actual
@@ -209,36 +219,38 @@ void controlPI()
     FRENAR();
   }
 }
-void casos(String header2)
+void casos(char input)
 {
-  Serial.println("ESTE ES EL HEADER BIENVENIDOS MUCHAS GRACIAS"); // Manera de identificar cual es el header, es decir la IP que recibe el ESP32
-  Serial.println(header2);
+  // Serial.println("ESTE ES EL HEADER BIENVENIDOS MUCHAS GRACIAS"); // Manera de identificar cual es el header, es decir la IP que recibe el ESP32
+  // Serial.println(header2);
 
-  char str_valor = header2[5]; // Guarda en str_valor el caracter que recibe de la app.
-  Serial.println(str_valor);
-  String input = "";
-  input = str_valor;
+  // char str_valor = header2[5]; // Guarda en str_valor el caracter que recibe de la app.
+  // Serial.println(str_valor);
+  // String input = "";
+  // input = str_valor;
 
   Serial.print("Input recibido: ");
   Serial.println(input); // Imprime el dato recibido en el monitor serie para un mejor comprension
 
   // En función del INPUT recibido por la app, llamamos a la funcion de movimiento necesaria
-  if (input == "v")
+  if (input == 'v')
   { // Llama a la funcion que corresponde ir hacia a guardal la veloicad objetivo
-    String str_get = "GET /";
-    String str_valor = "";
-    int slashPosition = header2.indexOf('/');
-    int spacePosition = header2.indexOf(' ', slashPosition);
+    // String str_get = "GET /";
+    // String str_valor = "";
+    // int slashPosition = header2.indexOf('/');
+    // int spacePosition = header2.indexOf(' ', slashPosition);
 
-    for (int i = slashPosition + 2; i <= spacePosition; i++)
-    {
-      str_valor = str_valor + header2.charAt(i);
-    }
-    // Convierte str_valor a un número de punto flotante y guárdalo en una variable única
-    valor = str_valor.toFloat();
+    // for (int i = slashPosition + 2; i <= spacePosition; i++)
+    // {
+    //   str_valor = str_valor + header2.charAt(i);
+    // }
+    // // Convierte str_valor a un número de punto flotante y guárdalo en una variable única
+    // valor = str_valor.toFloat();
+    valor = 20;
+    blinkLedNTimes(1);
   }
 
-  else if (input == "A") // Llama a la funcion que corresponde ir hacia adelante
+  else if (input == 'A') // Llama a la funcion que corresponde ir hacia adelante
   {
     velocidad_deseadax1 = valor; // define el valor de la velocida en rpm
     velocidad_deseadax2 = valor;
@@ -246,9 +258,10 @@ void casos(String header2)
     velocidad_deseada2 = map(velocidad_deseadax2, -60, 60, -255, 255);
     calcularVelocidad();
     controlPI();
+    blinkLedNTimes(2);
   }
 
-  else if (input == "S") // Llama a la funcion que corresponde a ir hacia atras
+  else if (input == 'S') // Llama a la funcion que corresponde a ir hacia atras
   {
     velocidad_deseadax1 = -valor;
     velocidad_deseadax2 = -valor;
@@ -256,9 +269,10 @@ void casos(String header2)
     velocidad_deseada2 = map(velocidad_deseadax2, -60, 60, -255, 255);
     calcularVelocidad();
     controlPI();
+    blinkLedNTimes(3);
   }
 
-  else if (input == "E") // Llama a la funcion que corresponde ir hacia adelante izq
+  else if (input == 'E') // Llama a la funcion que corresponde ir hacia adelante izq
   {
     velocidad_deseadax1 = valor; // Guardamos las velocidades originales
     velocidad_deseadax2 = valor;
@@ -269,9 +283,10 @@ void casos(String header2)
     velocidad_deseada2 *= 0.8;
     calcularVelocidad();
     controlPI();
+    blinkLedNTimes(4);
   }
 
-  else if (input == "T") // Llama a la funcion que corresponde ir hacia atras izq
+  else if (input == 'T') // Llama a la funcion que corresponde ir hacia atras izq
   {
     velocidad_deseadax1 = -valor; // Guardamos las velocidades originales
     velocidad_deseadax2 = -valor;
@@ -282,9 +297,10 @@ void casos(String header2)
     velocidad_deseada2 *= 0.8;
     calcularVelocidad();
     controlPI();
+    blinkLedNTimes(5);
   }
 
-  else if (input == "D") // Llama a la funcion que corresponde ir hacia adelante derecha
+  else if (input == 'D') // Llama a la funcion que corresponde ir hacia adelante derecha
   {
     velocidad_deseadax1 = valor; // Guardamos las velocidades originales
     velocidad_deseadax2 = valor;
@@ -295,9 +311,10 @@ void casos(String header2)
     velocidad_deseada2 *= 0.2;
     calcularVelocidad();
     controlPI();
+    blinkLedNTimes(6);
   }
 
-  else if (input == "R") // Llama a la funcion que corresponde a girar hacia atraz izq
+  else if (input == 'R') // Llama a la funcion que corresponde a girar hacia atraz izq
   {
     velocidad_deseadax1 = -valor; // Guardamos las velocidades originales
     velocidad_deseadax2 = -valor;
@@ -308,9 +325,10 @@ void casos(String header2)
     velocidad_deseada2 *= 0.2;
     calcularVelocidad();
     controlPI();
+    blinkLedNTimes(7);
   }
 
-  else if (input == "Z")
+  else if (input == 'Z')
   { // Llama a la funcion que corresponde a realizar un cuadrado
 
     for (int j = 0; j < 4; j++)
@@ -337,8 +355,9 @@ void casos(String header2)
       FRENARc();
       delay(500);
     }
+    blinkLedNTimes(8);
   }
-  else if (input == "F") // Llama a la funcion que corresponde a frenar
+  else if (input == 'F') // Llama a la funcion que corresponde a frenar
   {
     velocidad_deseadax1 = 0; // Guardamos las velocidades originales
     velocidad_deseadax2 = 0;
@@ -348,6 +367,7 @@ void casos(String header2)
     FRENAR();
     calcularVelocidad();
     controlPI();
+    blinkLedNTimes(9);
   }
   else
   {
@@ -374,23 +394,24 @@ void subscription_callback(const void *msgin)
   // msg_heartbeat.data++;
   // Serial.println("CALLED CALLBACK ############");
   const std_msgs__msg__Char *msg = (const std_msgs__msg__Char *)msgin;
-  String test(msg->data);
-  if (test == "A")
-  {
-    digitalWrite(LED_PIN, HIGH); // Enciende LED
-    delay(500);
-    digitalWrite(LED_PIN, LOW); // Enciende LED
-    delay(500);
-    digitalWrite(LED_PIN, HIGH); // Enciende LED
-    delay(500);
-    digitalWrite(LED_PIN, LOW); // Enciende LED
-  }
-  else if (msg->data == 'B')
-  {
-    digitalWrite(LED_PIN, HIGH); // Enciende LED
-    delay(500);
-    digitalWrite(LED_PIN, LOW); // Apaga LED
-  }
+
+  casos(msg->data);
+  // if (msg->data == 'A')
+  // {
+  //   digitalWrite(LED_PIN, HIGH); // Enciende LED
+  //   delay(500);
+  //   digitalWrite(LED_PIN, LOW); // Enciende LED
+  //   delay(500);
+  //   digitalWrite(LED_PIN, HIGH); // Enciende LED
+  //   delay(500);
+  //   digitalWrite(LED_PIN, LOW); // Enciende LED
+  // }
+  // else if (msg->data == 'B')
+  // {
+  //   digitalWrite(LED_PIN, HIGH); // Enciende LED
+  //   delay(500);
+  //   digitalWrite(LED_PIN, LOW); // Apaga LED
+  // }
 
   // Serial.print("Received message: ");
   // Serial.println(msg->data);
