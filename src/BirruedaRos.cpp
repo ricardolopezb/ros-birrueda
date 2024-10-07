@@ -118,6 +118,7 @@ void ADELANTE(int pwm1, int pwm2)
   analogWrite(IN12, 0);
   analogWrite(IN21, pwm2);
   analogWrite(IN22, 0);
+  
 }
 
 void ATRAS(int pwm1, int pwm2)
@@ -252,13 +253,14 @@ void casos(char input)
 
   else if (input == 'A') // Llama a la funcion que corresponde ir hacia adelante
   {
-    velocidad_deseadax1 = valor; // define el valor de la velocida en rpm
-    velocidad_deseadax2 = valor;
-    velocidad_deseada1 = map(velocidad_deseadax1, -60, 60, -255, 255); // mapea la velocidad rpm a pwm para luego hacer girar el motor
-    velocidad_deseada2 = map(velocidad_deseadax2, -60, 60, -255, 255);
-    calcularVelocidad();
-    controlPI();
-    blinkLedNTimes(2);
+    // velocidad_deseadax1 = valor; // define el valor de la velocida en rpm
+    // velocidad_deseadax2 = valor;
+    // velocidad_deseada1 = map(velocidad_deseadax1, -60, 60, -255, 255); // mapea la velocidad rpm a pwm para luego hacer girar el motor
+    // velocidad_deseada2 = map(velocidad_deseadax2, -60, 60, -255, 255);
+    //calcularVelocidad();
+    //controlPI();
+    ADELANTE(180, 180);
+    blinkLedNTimes(4);
   }
 
   else if (input == 'S') // Llama a la funcion que corresponde a ir hacia atras
@@ -269,7 +271,6 @@ void casos(char input)
     velocidad_deseada2 = map(velocidad_deseadax2, -60, 60, -255, 255);
     calcularVelocidad();
     controlPI();
-    blinkLedNTimes(3);
   }
 
   else if (input == 'E') // Llama a la funcion que corresponde ir hacia adelante izq
