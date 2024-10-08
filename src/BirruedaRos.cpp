@@ -259,32 +259,37 @@ void casos(char input)
     // velocidad_deseada2 = map(velocidad_deseadax2, -60, 60, -255, 255);
     //calcularVelocidad();
     //controlPI();
+    FRENAR();
+    delay(100);
     ADELANTE(180, 180);
-    blinkLedNTimes(4);
   }
 
   else if (input == 'S') // Llama a la funcion que corresponde a ir hacia atras
   {
-    velocidad_deseadax1 = -valor;
-    velocidad_deseadax2 = -valor;
-    velocidad_deseada1 = map(velocidad_deseadax1, -60, 60, -255, 255);
-    velocidad_deseada2 = map(velocidad_deseadax2, -60, 60, -255, 255);
-    calcularVelocidad();
-    controlPI();
+    // velocidad_deseadax1 = -valor;
+    // velocidad_deseadax2 = -valor;
+    // velocidad_deseada1 = map(velocidad_deseadax1, -60, 60, -255, 255);
+    // velocidad_deseada2 = map(velocidad_deseadax2, -60, 60, -255, 255);
+    // calcularVelocidad();
+    // controlPI();
+    FRENAR();
+    delay(100);
+    ATRAS(180, 180);
   }
 
   else if (input == 'E') // Llama a la funcion que corresponde ir hacia adelante izq
   {
-    velocidad_deseadax1 = valor; // Guardamos las velocidades originales
-    velocidad_deseadax2 = valor;
+    ADELANTE(0, 120);
+    // velocidad_deseadax1 = valor; // Guardamos las velocidades originales
+    // velocidad_deseadax2 = valor;
 
-    velocidad_deseada2 = map(velocidad_deseadax2, -60, 60, -255, 255);
-    velocidad_deseada1 = map(velocidad_deseadax1, -60, 60, -255, 255);
-    velocidad_deseada1 *= 0.2;
-    velocidad_deseada2 *= 0.8;
-    calcularVelocidad();
-    controlPI();
-    blinkLedNTimes(4);
+    // velocidad_deseada2 = map(velocidad_deseadax2, -60, 60, -255, 255);
+    // velocidad_deseada1 = map(velocidad_deseadax1, -60, 60, -255, 255);
+    // velocidad_deseada1 *= 0.2;
+    // velocidad_deseada2 *= 0.8;
+    // calcularVelocidad();
+    // controlPI();
+    // blinkLedNTimes(4);
   }
 
   else if (input == 'T') // Llama a la funcion que corresponde ir hacia atras izq
@@ -303,16 +308,17 @@ void casos(char input)
 
   else if (input == 'D') // Llama a la funcion que corresponde ir hacia adelante derecha
   {
-    velocidad_deseadax1 = valor; // Guardamos las velocidades originales
-    velocidad_deseadax2 = valor;
+    ADELANTE(120, 0);
+    // velocidad_deseadax1 = valor; // Guardamos las velocidades originales
+    // velocidad_deseadax2 = valor;
 
-    velocidad_deseada2 = map(velocidad_deseadax2, -60, 60, -255, 255);
-    velocidad_deseada1 = map(velocidad_deseadax1, -60, 60, -255, 255);
-    velocidad_deseada1 *= 0.8;
-    velocidad_deseada2 *= 0.2;
-    calcularVelocidad();
-    controlPI();
-    blinkLedNTimes(6);
+    // velocidad_deseada2 = map(velocidad_deseadax2, -60, 60, -255, 255);
+    // velocidad_deseada1 = map(velocidad_deseadax1, -60, 60, -255, 255);
+    // velocidad_deseada1 *= 0.8;
+    // velocidad_deseada2 *= 0.2;
+    // calcularVelocidad();
+    // controlPI();
+    // blinkLedNTimes(6);
   }
 
   else if (input == 'R') // Llama a la funcion que corresponde a girar hacia atraz izq
@@ -360,15 +366,15 @@ void casos(char input)
   }
   else if (input == 'F') // Llama a la funcion que corresponde a frenar
   {
-    velocidad_deseadax1 = 0; // Guardamos las velocidades originales
-    velocidad_deseadax2 = 0;
+    // velocidad_deseadax1 = 0; // Guardamos las velocidades originales
+    // velocidad_deseadax2 = 0;
 
-    velocidad_deseada2 = map(velocidad_deseadax2, -60, 60, -255, 255);
-    velocidad_deseada1 = map(velocidad_deseadax1, -60, 60, -255, 255);
+    // velocidad_deseada2 = map(velocidad_deseadax2, -60, 60, -255, 255);
+    // velocidad_deseada1 = map(velocidad_deseadax1, -60, 60, -255, 255);
     FRENAR();
-    calcularVelocidad();
-    controlPI();
-    blinkLedNTimes(9);
+    // calcularVelocidad();
+    // controlPI();
+    // blinkLedNTimes(9);
   }
   else
   {

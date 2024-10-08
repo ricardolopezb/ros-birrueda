@@ -2,7 +2,7 @@ import paho.mqtt.client as mqtt
 import subprocess
 
 # MQTT broker details
-broker = 'localhost'  # Replace with your MQTT broker address
+broker = '190.221.174.11'  # Replace with your MQTT broker address
 port = 1883
 topic = "cli/commands"
 
